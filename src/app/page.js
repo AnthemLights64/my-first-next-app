@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 import Hero from '/public/hero.png'
+import Button from '@/components/button/Button'
 
 export default function Home() {
   return (
@@ -13,7 +14,7 @@ export default function Home() {
         <p className={styles.description}>
           这是一段文本。这是一段文本。这是一段文本。这是一段文本。这是一段文本。这是一段文本。
         </p>
-        <button className={styles.button}>这是一个按钮</button>
+        <Button url='/portfolio' text='这是一个按钮' />
       </div>
 
       <div className={styles.item}>
