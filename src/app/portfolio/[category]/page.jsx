@@ -2,71 +2,50 @@ import React from 'react'
 import styles from './page.module.css'
 import Button from '@/components/button/Button'
 import Image from 'next/image'
+import { items } from './data.js'
+import { notFound } from 'next/navigation'
+
+const getData = (cat) => {
+  const data = items[cat]
+
+  if (data)
+    return data
+  
+  return notFound()
+
+}
 
 const Category = ({params}) => {
-  console.log(params)
+
+  const data = getData(params.category)
+
   return (
     <div className={styles.container}>
       <h1 className={styles.categoryTitle}>{params.category}</h1>
-      <div className={styles.item}>
-        <div className={styles.content}>
-          <h1 className={styles.title}>
-            这是一个标题
-          </h1>
-          <p className={styles.description}>
-            这是一段描述。这是一段描述。这是一段描述。这是一段描述。这是一段描述。这是一段描述。这是一段描述。
-          </p>
-          <Button url='#' text="更多" />
-        </div>
-        <div className={styles.imgContainer}>
-          <Image
-            className={styles.img}
-            src='https://plus.unsplash.com/premium_photo-1673002094103-b2657755f800?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3270&q=80'
-            alt=''
-            fill={true}
-          />
-        </div>
-      </div>
+      
+      {data.map(item => (
 
-      <div className={styles.item}>
-        <div className={styles.content}>
-          <h1 className={styles.title}>
-            这是一个标题
-          </h1>
-          <p className={styles.description}>
-            这是一段描述。这是一段描述。这是一段描述。这是一段描述。这是一段描述。这是一段描述。这是一段描述。
-          </p>
-          <Button url='#' text="更多" />
+        <div className={styles.item} key={item.id}>
+          <div className={styles.content}>
+            <h1 className={styles.title}>
+              {item.title}
+            </h1>
+            <p className={styles.description}>
+              {item.desc}
+            </p>
+            <Button url='#' text="更多" />
+          </div>
+          <div className={styles.imgContainer}>
+            <Image
+              className={styles.img}
+              src={item.image}
+              alt=''
+              fill={true}
+              />
+          </div>
         </div>
-        <div className={styles.imgContainer}>
-          <Image
-            className={styles.img}
-            src='https://images.unsplash.com/photo-1476673160081-cf065607f449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80'
-            alt=''
-            fill={true}
-          />
-        </div>
-      </div>
 
-      <div className={styles.item}>
-        <div className={styles.content}>
-          <h1 className={styles.title}>
-            这是一个标题
-          </h1>
-          <p className={styles.description}>
-            这是一段描述。这是一段描述。这是一段描述。这是一段描述。这是一段描述。这是一段描述。这是一段描述。
-          </p>
-          <Button url='#' text="更多" />
-        </div>
-        <div className={styles.imgContainer}>
-          <Image
-            className={styles.img}
-            src='https://images.unsplash.com/photo-1476673160081-cf065607f449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80'
-            alt=''
-            fill={true}
-          />
-        </div>
-      </div>
+      ))}
     </div>
   )
 }
